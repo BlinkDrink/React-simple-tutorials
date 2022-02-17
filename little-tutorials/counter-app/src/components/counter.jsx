@@ -5,12 +5,6 @@ class Counter extends Component {
 		count: 0,
 	};
 
-	// One way to bind "this" to event handler, the other is down below, using arrow func
-	// constructor() {
-	// 	super();
-	// 	this.handleIncrement = this.handleIncrement.bind(this);
-	// }
-
 	render() {
 		return (
 			<div>
@@ -26,7 +20,7 @@ class Counter extends Component {
 	}
 
 	handleIncrement = () => {
-		console.log("Increment clicked", this);
+		this.setState({ count: this.state.count + 1 });
 	};
 
 	formatCount() {
@@ -35,7 +29,7 @@ class Counter extends Component {
 	}
 
 	getBadgeClasses() {
-		let classes = "badge text-reset m-2 bg-";
+		let classes = "badge m-2 bg-";
 		classes += this.state.count === 0 ? "warning" : "primary";
 		return classes;
 	}
