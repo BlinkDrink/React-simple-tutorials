@@ -12,6 +12,12 @@ class App extends Component {
 		],
 	};
 
+	componentDidUpdate(prevProps, prevState) {
+		if (prevProps.counter.value !== this.props.counter.value) {
+			// Ajax call and get new data from server
+		}
+	}
+
 	handleIncrement = (counter) => {
 		const counters = [...this.state.counters];
 		const index = counters.indexOf(counter);
