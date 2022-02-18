@@ -1,2 +1,1 @@
-# EvrolanStore
-E-commerce store for video surveillance products.
+# Simple react tutorials 
