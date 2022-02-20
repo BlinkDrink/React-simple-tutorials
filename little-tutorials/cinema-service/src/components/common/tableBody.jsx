@@ -3,9 +3,9 @@ import _ from "lodash";
 
 class TableBody extends Component {
 	rednerCell = (item, column) => {
-		if (column.content) return column.content(item);
+		if (column.content) return column.content(item); // if the column is a like button or delete button we render it
 
-		return _.get(item, column.path);
+		return _.get(item, column.path); // underscore gives us the ability to get nested properties like genre._id
 	};
 
 	createKey = (item, column) => {
@@ -32,7 +32,6 @@ class TableBody extends Component {
 }
 
 TableBody.defaultProps = {
-	textProperty: "name",
 	valueProperty: "_id",
 };
 
