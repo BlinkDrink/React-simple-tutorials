@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 class ProductDetails extends Component {
 	handleSave = () => {
 		// Navigate to /products
+		this.props.history.push("/products");
 	};
 
 	render() {
