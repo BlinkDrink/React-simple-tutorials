@@ -1,4 +1,3 @@
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import React, { Component } from "react";
 
 const Like = (props) => {
