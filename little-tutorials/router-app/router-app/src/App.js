@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import NavBar from "./components/navbar";
-import { Routes, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Products from "./components/products";
 import Posts from "./components/posts";
 import Home from "./components/home";
 import Dashboard from "./components/admin/dashboard";
-import WrapperProductDetails from "./components/productDetails";
+import ProductDetails from "./components/productDetails";
 import NotFound from "./components/notFound";
 import "./App.css";
 
@@ -15,16 +15,13 @@ class App extends Component {
 			<div>
 				<NavBar />
 				<div className="content">
-					<Routes>
-						<Route
-							path="/products/:id"
-							element={<WrapperProductDetails />}
-						></Route>
-						<Route path="/products" element={<Products />}></Route>
-						<Route path="/posts/:year/:month" element={<Posts />}></Route>
-						<Route path="/admin" element={<Dashboard />}></Route>
-						<Route path="/" element={<Home />}></Route>
-					</Routes>
+					<Switch>
+						<Route path="/products/:id" component={ProductDetails}></Route>
+						<Route path="/products" component={Products}></Route>
+						<Route path="/posts/:year?/:month?" component={Posts}></Route>
+						<Route path="/admin" component={Dashboard}></Route>
+						<Route path="/" component={Home}></Route>
+					</Switch>
 				</div>
 			</div>
 		);

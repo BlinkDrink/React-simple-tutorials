@@ -9,17 +9,17 @@ class ProductDetails extends Component {
 	render() {
 		return (
 			<div>
-				<h1>Product Details - {this.props.params.id}</h1>
+				<h1>Product Details - {this.props.match.params.id}</h1>
 				<button onClick={this.handleSave}>Save</button>
 			</div>
 		);
 	}
 }
 
-const WrapperProductDetails = () => {
-	const params = useParams();
+// const WrapperProductDetails = () => {
+// 	const params = useParams();
 
-	return <ProductDetails params={params} />;
-};
+// 	return <ProductDetails params={params} />;
+// };
 
-export default WrapperProductDetails;
+export default ProductDetails;
