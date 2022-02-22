@@ -1,21 +1,23 @@
 import React, { Component } from "react";
 import httpService from "./services/httpService";
+import { ToastContainer } from "react-toastify";
+import config from "./config.json";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
-const apiEndpoint = "https://jsonplaceholder.typicode.com/posts";
 class App extends Component {
 	state = {
 		posts: [],
 	};
 
 	async componentDidMount() {
-		const { data: posts } = await httpService.get(apiEndpoint);
+		const { data: posts } = await httpService.get(config.apiEndpoint);
 		this.setState({ posts });
 	}
 
 	handleAdd = async () => {
 		const obj = { title: "a", body: "b" };
-		const { data: post } = await httpService.post(apiEndpoint, obj);
+		const { data: post } = await httpService.post(config.apiEndpoint, obj);
 
 		const posts = [post, ...this.state.posts];
 		this.setState({ posts });
@@ -23,7 +25,7 @@ class App extends Component {
 
 	handleUpdate = async (post) => {
 		post.title = "UPDATED";
-		await httpService.put(apiEndpoint + "/" + post.id, post);
+		await httpService.put(config.apiEndpoint + "/" + post.id, post);
 
 		const posts = [...this.state.posts];
 		const index = posts.indexOf(post);
@@ -38,7 +40,7 @@ class App extends Component {
 		this.setState({ posts });
 
 		try {
-			await httpService.delete(apiEndpoint + "/999/" + post.id, {}, post);
+			await httpService.delete("s" + config.apiEndpoint + "/999/" + post.id);
 		} catch (ex) {
 			if (ex.response && ex.response.status === 404)
 				alert("This post has been deleted.");
@@ -49,6 +51,7 @@ class App extends Component {
 	render() {
 		return (
 			<React.Fragment>
+				<ToastContainer />
 				<p>Showing {this.state.posts.length} posts in the database</p>
 				<button className="btn btn-primary" onClick={this.handleAdd}>
 					Add
