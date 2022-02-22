@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import httpService from "./services/httpService";
 import "./App.css";
 
 const apiEndpoint = "https://jsonplaceholder.typicode.com/posts";
@@ -9,13 +9,13 @@ class App extends Component {
 	};
 
 	async componentDidMount() {
-		const { data: posts } = await axios.get(apiEndpoint);
+		const { data: posts } = await httpService.get(apiEndpoint);
 		this.setState({ posts });
 	}
 
 	handleAdd = async () => {
 		const obj = { title: "a", body: "b" };
-		const { data: post } = await axios.post(apiEndpoint, obj);
+		const { data: post } = await httpService.post(apiEndpoint, obj);
 
 		const posts = [post, ...this.state.posts];
 		this.setState({ posts });
@@ -23,7 +23,7 @@ class App extends Component {
 
 	handleUpdate = async (post) => {
 		post.title = "UPDATED";
-		await axios.put(apiEndpoint + "/" + post.id, post);
+		await httpService.put(apiEndpoint + "/" + post.id, post);
 
 		const posts = [...this.state.posts];
 		const index = posts.indexOf(post);
@@ -38,16 +38,10 @@ class App extends Component {
 		this.setState({ posts });
 
 		try {
-			await axios.delete(apiEndpoint + "/" + post.id);
-			throw new Error("");
+			await httpService.delete(apiEndpoint + "/999/" + post.id, {}, post);
 		} catch (ex) {
 			if (ex.response && ex.response.status === 404)
 				alert("This post has been deleted.");
-			else {
-				console.log("logging the error", ex);
-				alert("Unexpected err");
-			}
-
 			this.setState({ posts: originalPosts });
 		}
 	};
